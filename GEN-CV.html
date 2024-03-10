@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de CV</title>
+     <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="file"],
+        textarea,
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button,
+        input[type="submit"] {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover,
+        input[type="submit"]:hover {
+            background-color: #006080;
+        }
+
+        .experience,
+        .education,
+        #activite {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        #addlangue {
+            background-color: #008CBA;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #addlangue:hover {
+            background-color: #006080;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Validation du formulaire
+            var form = document.querySelector('form');
+            form.addEventListener('submit', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateForm() {
+                var requiredFields = document.querySelectorAll('[required]');
+
+                for (var i = 0; i < requiredFields.length; i++) {
+                    if (!requiredFields[i].value.trim()) {
+                        alert('Veuillez remplir tous les champs obligatoires.');
+                        return false;
+                    }
+                }
+
+                var email = document.getElementById("email").value;
+                var phone = document.getElementById("phone").value;
+
+                if (!isValidEmail(email)) {
+                    alert("Veuillez saisir une adresse email valide se terminant par @gmail.com");
+                    return false;
+                }
+
+                if (!isValidPhoneNumber(phone)) {
+                    alert("Veuillez saisir un numéro de téléphone valide composé de 8 chiffres.");
+                    return false;
+                }
+
+                return true;
+            }
+
+            function isValidEmail(email) {
+                return email.trim().toLowerCase().endsWith("@gmail.com");
+            }
+           
+            function isValidPhoneNumber(phone) {
+                if (phone.length !== 8 || !(/^\d+$/.test(phone))) {  
+                    alert("Veuillez saisir un numéro de téléphone valide composé de 8 chiffres.");
+                    return false;
+                }
+                return true;
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Générateur de CV</h1>
+    <form action="cv.php" method="post" >
+        <h2>Informations Personnelles</h2>
+        <label for="name">prenom:</label><br>
+        <input type="text" id="prenom" name="prenom" required><br><br>
+        <label for="nom">Nom famille:</label><br>
+        <input type="text" id="nom" name="nom" required><br><br>
+         <label for="date-naissance">Date de naissance :</label><br>
+               <input type="date" id="date-naissance" name="date-naissance" ><br><br>
+       
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+       
+        <label for="phone">Téléphone:</label><br>
+        <input type="tel" id="phone" name="phone" required><br><br>
+
+        <label for="langue">langues :</label><br>
+        <input type="text" id="langue" name="langue" required>  <br><br>
+       
+        <h2 >Expérience Professionnelle</h2>
+        <div id="experience">
+            <div class="experience">
+                <label for="titre-exp">Poste occupé:</label><br>
+                <input type="text" id="titre-exp" name="titre-exp" ><br><br>
+
+                <label for="entreprise">Nom de l'entreprise:</label><br>
+                <input type="text" id="entreprise" name="entreprise" ><br><br>
+
+               
+                <label for="experience_description">Description:</label><br>
+                <input type="text" name="experience_description" ><br><br>
+            </div>
+        </div>
+       
+        <h2 >Éducation</h2>
+        <div id="edu">
+            <div class="education">
+               
+                <label for="education_degree">Diplôme obtenu:</label><br>
+                <input type="text" id="education_degree" name="education_degree" required><br><br>
+
+                <label for="ecole">Nom de l'école:</label><br>
+                <input type="text" id="ecole" name="ecole" required><br><br>
+
+
+                <label for="education_description">Description:</label><br>
+                <input type="text" name="education_description" > <br><br>
+            </div>
+        </div> <br><br>
+        <h2>Activités sociale</h2>
+        <div id="activite">
+       
+        <label for="skills">Activités sociale:</label><br>
+        <input type="text" id="skills" name="skills" ><br><br>
+        </div>
+            <br><br> <input type="submit" value="Générer CV">
+    </form>
+</body>
+</html>

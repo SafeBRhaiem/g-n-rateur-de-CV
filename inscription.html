@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        div {
+            max-width: 400px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+  <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var formulaire = document.querySelector("form");
+
+            formulaire.addEventListener("submit", function (event) {
+                var email = formulaire.querySelector("#email").value;
+                var motDePasse = formulaire.querySelector("#mot_pass").value;
+
+                if (!validerEmail(email)) {
+                    alert("Veuillez entrer une adresse e-mail valide (@gmail.com uniquement).");
+                    event.preventDefault();
+                    return false;
+                }
+
+                if (!validerMotDePasse(motDePasse)) {
+                    alert("Le mot de passe doit contenir au moins 6 caractères, y compris des chiffres.");
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            function validerEmail(email) {
+                var regexEmail = /\b[A-Za-z0-9._%+-]+@gmail\.com\b/;
+                return regexEmail.test(email);
+            }
+
+            function validerMotDePasse(motDePasse) {
+                var regexMotDePasse = /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
+                return regexMotDePasse.test(motDePasse);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <h1>Bienvenue dans mon site web</h1>
+        <form action="ajout.php" method="post">
+            <div>
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" required>
+            </div>
+            <div>
+                <label for="email">Email :</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="mot_pass">Mot de passe :</label>
+                <input type="password" id="mot_pass" name="mot_pass" required>
+            </div>
+            <input type="submit" value="S'inscrire">
+        </form>
+        <h1>Déjà inscrit ?</h1>
+        <a href="connexion.html" rel="noreferrer">Connectez-vous ici</a>
+    </div>
+</body>
+</html>
