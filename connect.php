@@ -1,6 +1,5 @@
 <?php
 require('Database.php');
-session_start();
 
 class Authentification {
     private $bd;
